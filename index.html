@@ -4,50 +4,55 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Çok Güzel Miyim?</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --accent:#ff5c8a;
-      --accent-2:#ff9bb3;
+      --accent:#ff4f81;
+      --accent-2:#ff9ec4;
+      --bg-light:#fff0f6;
       --muted:#6a5a5a;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#fff,#ffeef2)}
-    body{display:flex;align-items:center;justify-content:center;padding:20px}
+    html,body{height:100%;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,var(--bg-light),#ffe1eb)}
+    body{display:flex;align-items:center;justify-content:center;padding:12px}
 
-    .stage{position:relative;width:100%;max-width:420px;min-height:70vh;background:#fff;border-radius:20px;box-shadow:0 10px 30px rgba(255,92,138,0.18);padding:24px;overflow:hidden;text-align:center;display:flex;flex-direction:column;justify-content:center}
+    .stage{position:relative;width:100%;max-width:420px;min-height:70vh;background:#fff;border-radius:28px;box-shadow:0 15px 40px rgba(255,79,129,0.25);padding:24px;overflow:hidden;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fadeIn 1s ease}
 
-    h1{font-size:24px;color:var(--accent);margin-bottom:14px}
-    p.lead{font-size:15px;color:var(--muted);margin-bottom:28px}
+    .question{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    h1{font-size:26px;font-family:'Great Vibes',cursive;color:var(--accent);margin-bottom:14px}
+    p.lead{font-size:16px;color:var(--muted);margin-bottom:28px}
 
-    .buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-    button.btn{flex:1 1 auto;min-width:120px;padding:14px;border-radius:12px;border:0;font-weight:600;font-size:16px;cursor:pointer;transition:transform .5s cubic-bezier(.25,1.25,.5,1), font-size .4s ease,width .4s ease,height .4s ease}
-    .btn-yes{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;transform-origin:center center}
-    .btn-no{background:#fff;border:2px solid #ffd0df;color:var(--accent)}
+    .buttons{display:flex;flex-direction:column;gap:18px;align-items:center;margin-top:auto}
+    button.btn{min-width:150px;padding:14px 18px;border-radius:20px;border:0;font-weight:600;font-size:16px;cursor:pointer;transition:all .45s cubic-bezier(.25,1.25,.5,1)}
+    .btn-yes{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;transform-origin:center center;box-shadow:0 6px 20px rgba(255,79,129,0.4)}
+    .btn-no{background:#fff;border:2px solid #ffd0df;color:var(--accent);box-shadow:0 4px 12px rgba(255,79,129,0.1)}
 
-    /* floating hearts */
     .heart-container{pointer-events:none;position:absolute;inset:0;overflow:hidden}
-    .heart{position:absolute;width:16px;height:16px;opacity:0}
+    .heart{position:absolute;width:18px;height:18px;opacity:0}
     .heart svg{width:100%;height:100%}
 
-    /* overlay */
-    .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:999;opacity:0;pointer-events:none;transition:opacity .4s ease}
+    .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:999;opacity:0;pointer-events:none;transition:opacity .5s ease}
     .overlay.show{opacity:1;pointer-events:auto}
 
-    .final-card{position:relative;max-width:90%;border-radius:16px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.2)}
+    .final-card{position:relative;max-width:92%;border-radius:20px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.3);animation:zoomIn 0.8s ease}
     .final-card img{width:100%;height:auto;display:block}
-    .final-card h2{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font-size:20px;padding:20px;background:rgba(0,0,0,0.35)}
+    .final-card h2{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font-size:22px;font-family:'Great Vibes',cursive;padding:20px;background:rgba(0,0,0,0.3)}
+
+    @keyframes fadeIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+    @keyframes zoomIn{from{transform:scale(0.7);opacity:0}to{transform:scale(1);opacity:1}}
 
     @media (min-width:600px){
-      h1{font-size:28px}
-      .final-card h2{font-size:32px}
+      h1{font-size:34px}
+      .final-card h2{font-size:38px}
     }
   </style>
 </head>
 <body>
   <div class="stage" id="stage">
-    <h1>Çok Güzel Miyim?</h1>
-    <p class="lead">Seç bakalım 😘</p>
+    <div class="question">
+      <h1>Çok Güzel Miyim?</h1>
+      <p class="lead">Seç bakalım 😘</p>
+    </div>
 
     <div class="buttons">
       <button id="yesBtn" class="btn btn-yes">Evet</button>
@@ -80,7 +85,9 @@
       'Yine mi hayır ?',
       'Pes etmeyecek misin ?',
       'Hadi ama 😢',
-      'Bir daha düşün 😍'
+      'Bir daha düşün 😍',
+      'Yanılıyorsun 💕',
+      'Olmaz ki böyle 🙈'
     ];
 
     let noCount = 0;
@@ -89,12 +96,12 @@
     function makeHeart() {
       const h = document.createElement('div');
       h.className = 'heart';
-      const size = 10 + Math.random()*14;
+      const size = 12 + Math.random()*18;
       h.style.width = size + 'px';
       h.style.height = size + 'px';
       h.style.left = (Math.random()*100) + '%';
       h.style.top = '70%';
-      h.innerHTML = `<svg viewBox="0 0 32 29" xmlns="http://www.w3.org/2000/svg"><path d="M23.6 2c-2.7 0-4.8 2.2-4.8 2.2S16.7 2 14 2C9.6 2 6 5.6 6 10c0 7.8 12 15 12 15s12-7.2 12-15c0-4.4-3.6-8-8.4-8z" fill="#ff5c8a"/></svg>`;
+      h.innerHTML = `<svg viewBox="0 0 32 29" xmlns="http://www.w3.org/2000/svg"><path d="M23.6 2c-2.7 0-4.8 2.2-4.8 2.2S16.7 2 14 2C9.6 2 6 5.6 6 10c0 7.8 12 15 12 15s12-7.2 12-15c0-4.4-3.6-8-8.4-8z" fill="#ff4f81"/></svg>`;
       hearts.appendChild(h);
 
       const anim = h.animate([
@@ -111,27 +118,29 @@
     noBtn.addEventListener('click', ()=>{
       noCount++;
       noBtn.textContent = noLabels[(noCount-1) % noLabels.length];
-      yesScale += 0.3;
+
+      yesScale = 1 + noCount * 0.2;
       yesBtn.style.transform = `scale(${yesScale})`;
       spawnHearts(6);
 
-      if(yesScale > 3.5){
-        noBtn.style.opacity = 0; noBtn.style.pointerEvents = 'none';
-        yesBtn.style.transition = 'all 0.6s cubic-bezier(.25,1.25,.5,1)';
+      if(yesScale > 3.2){
+        // Evet tüm ekranı kaplasın
+        noBtn.style.display = 'none';
+        yesBtn.style.transition = 'all 0.7s cubic-bezier(.25,1.25,.5,1)';
         yesBtn.style.position = 'fixed';
-        yesBtn.style.left = '50%';
-        yesBtn.style.top = '50%';
-        yesBtn.style.transform = 'translate(-50%,-50%) scale(1)';
-        yesBtn.style.width = '80vw';
-        yesBtn.style.height = '20vh';
-        yesBtn.style.fontSize = '26px';
-        yesBtn.style.borderRadius = '20px';
+        yesBtn.style.left = '0';
+        yesBtn.style.top = '0';
+        yesBtn.style.width = '100vw';
+        yesBtn.style.height = '100vh';
+        yesBtn.style.fontSize = '32px';
+        yesBtn.style.borderRadius = '0';
+        yesBtn.style.transform = 'none';
       }
     });
 
     yesBtn.addEventListener('click', ()=>{
       overlay.classList.add('show');
-      spawnHearts(20);
+      spawnHearts(25);
     });
   </script>
 </body>

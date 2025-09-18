@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#fff0f6;
       --accent:#ff5c8a;
       --accent-2:#ff9bb3;
       --muted:#6a5a5a;
@@ -16,13 +15,13 @@
     html,body{height:100%;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#fff,#ffeef2)}
     body{display:flex;align-items:center;justify-content:center;padding:20px}
 
-    .stage{position:relative;width:100%;max-width:420px;min-height:60vh;background:#fff;border-radius:20px;box-shadow:0 10px 30px rgba(255,92,138,0.18);padding:24px;overflow:hidden;text-align:center}
+    .stage{position:relative;width:100%;max-width:420px;min-height:70vh;background:#fff;border-radius:20px;box-shadow:0 10px 30px rgba(255,92,138,0.18);padding:24px;overflow:hidden;text-align:center;display:flex;flex-direction:column;justify-content:center}
 
-    h1{font-size:22px;color:var(--accent);margin-bottom:10px}
-    p.lead{font-size:14px;color:var(--muted);margin-bottom:24px}
+    h1{font-size:24px;color:var(--accent);margin-bottom:14px}
+    p.lead{font-size:15px;color:var(--muted);margin-bottom:28px}
 
     .buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-    button.btn{flex:1 1 auto;min-width:120px;padding:14px;border-radius:12px;border:0;font-weight:600;font-size:16px;cursor:pointer;transition:transform .3s ease, font-size .3s ease}
+    button.btn{flex:1 1 auto;min-width:120px;padding:14px;border-radius:12px;border:0;font-weight:600;font-size:16px;cursor:pointer;transition:transform .5s cubic-bezier(.25,1.25,.5,1), font-size .4s ease,width .4s ease,height .4s ease}
     .btn-yes{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;transform-origin:center center}
     .btn-no{background:#fff;border:2px solid #ffd0df;color:var(--accent)}
 
@@ -77,7 +76,11 @@
       'Hiç de bile ?',
       'Bunu hak etmiyorsun ?',
       'Gerçekten mi ?',
-      'Tekrar dene :)'
+      'Tekrar dene :)',
+      'Yine mi hayır ?',
+      'Pes etmeyecek misin ?',
+      'Hadi ama 😢',
+      'Bir daha düşün 😍'
     ];
 
     let noCount = 0;
@@ -108,20 +111,20 @@
     noBtn.addEventListener('click', ()=>{
       noCount++;
       noBtn.textContent = noLabels[(noCount-1) % noLabels.length];
-      yesScale += 0.6;
-      yesBtn.style.transition = 'transform 0.4s ease';
+      yesScale += 0.3;
       yesBtn.style.transform = `scale(${yesScale})`;
       spawnHearts(6);
 
-      if(yesScale > 6){
+      if(yesScale > 3.5){
         noBtn.style.opacity = 0; noBtn.style.pointerEvents = 'none';
-        yesBtn.style.transition = 'all 0.6s ease';
+        yesBtn.style.transition = 'all 0.6s cubic-bezier(.25,1.25,.5,1)';
         yesBtn.style.position = 'fixed';
-        yesBtn.style.inset = '0';
-        yesBtn.style.margin = 'auto';
-        yesBtn.style.width = '90vw';
-        yesBtn.style.height = '90vh';
-        yesBtn.style.fontSize = '32px';
+        yesBtn.style.left = '50%';
+        yesBtn.style.top = '50%';
+        yesBtn.style.transform = 'translate(-50%,-50%) scale(1)';
+        yesBtn.style.width = '80vw';
+        yesBtn.style.height = '20vh';
+        yesBtn.style.fontSize = '26px';
         yesBtn.style.borderRadius = '20px';
       }
     });

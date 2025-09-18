@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Çok Güzel Miyim?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fff0f6;
+      --accent:#ff5c8a;
+      --accent-2:#ff9bb3;
+      --muted:#6a5a5a;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#fff,#ffeef2)}
+    body{display:flex;align-items:center;justify-content:center;padding:20px}
+
+    .stage{position:relative;width:100%;max-width:420px;min-height:60vh;background:#fff;border-radius:20px;box-shadow:0 10px 30px rgba(255,92,138,0.18);padding:24px;overflow:hidden;text-align:center}
+
+    h1{font-size:22px;color:var(--accent);margin-bottom:10px}
+    p.lead{font-size:14px;color:var(--muted);margin-bottom:24px}
+
+    .buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    button.btn{flex:1 1 auto;min-width:120px;padding:14px;border-radius:12px;border:0;font-weight:600;font-size:16px;cursor:pointer;transition:transform .3s ease, font-size .3s ease}
+    .btn-yes{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;transform-origin:center center}
+    .btn-no{background:#fff;border:2px solid #ffd0df;color:var(--accent)}
+
+    /* floating hearts */
+    .heart-container{pointer-events:none;position:absolute;inset:0;overflow:hidden}
+    .heart{position:absolute;width:16px;height:16px;opacity:0}
+    .heart svg{width:100%;height:100%}
+
+    /* overlay */
+    .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:999;opacity:0;pointer-events:none;transition:opacity .4s ease}
+    .overlay.show{opacity:1;pointer-events:auto}
+
+    .final-card{position:relative;max-width:90%;border-radius:16px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.2)}
+    .final-card img{width:100%;height:auto;display:block}
+    .final-card h2{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font-size:20px;padding:20px;background:rgba(0,0,0,0.35)}
+
+    @media (min-width:600px){
+      h1{font-size:28px}
+      .final-card h2{font-size:32px}
+    }
+  </style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <h1>Çok Güzel Miyim?</h1>
+    <p class="lead">Seç bakalım 😘</p>
+
+    <div class="buttons">
+      <button id="yesBtn" class="btn btn-yes">Evet</button>
+      <button id="noBtn" class="btn btn-no">Hayır</button>
+    </div>
+
+    <div class="heart-container" id="hearts"></div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="final-card">
+      <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Kalp Gif">
+      <h2>Sen dünyanın en güzel kadınısın 💖</h2>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const hearts = document.getElementById('hearts');
+    const overlay = document.getElementById('overlay');
+
+    const noLabels = [
+      'Emin misin ?',
+      'Son kararın mı ?',
+      'Hiç de bile ?',
+      'Bunu hak etmiyorsun ?',
+      'Gerçekten mi ?',
+      'Tekrar dene :)'
+    ];
+
+    let noCount = 0;
+    let yesScale = 1;
+
+    function makeHeart() {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      const size = 10 + Math.random()*14;
+      h.style.width = size + 'px';
+      h.style.height = size + 'px';
+      h.style.left = (Math.random()*100) + '%';
+      h.style.top = '70%';
+      h.innerHTML = `<svg viewBox="0 0 32 29" xmlns="http://www.w3.org/2000/svg"><path d="M23.6 2c-2.7 0-4.8 2.2-4.8 2.2S16.7 2 14 2C9.6 2 6 5.6 6 10c0 7.8 12 15 12 15s12-7.2 12-15c0-4.4-3.6-8-8.4-8z" fill="#ff5c8a"/></svg>`;
+      hearts.appendChild(h);
+
+      const anim = h.animate([
+        { transform: 'translateY(0) scale(0.6)', opacity: 0 },
+        { transform: 'translateY(-40px) scale(1)', opacity: 1 },
+        { transform: 'translateY(-120px) scale(0.8)', opacity: 0 }
+      ], { duration: 2000 + Math.random()*800, easing: 'ease-out' });
+
+      anim.onfinish = () => h.remove();
+    }
+
+    function spawnHearts(n=4){ for(let i=0;i<n;i++){ setTimeout(makeHeart, i*120); } }
+
+    noBtn.addEventListener('click', ()=>{
+      noCount++;
+      noBtn.textContent = noLabels[(noCount-1) % noLabels.length];
+      yesScale += 0.6;
+      yesBtn.style.transition = 'transform 0.4s ease';
+      yesBtn.style.transform = `scale(${yesScale})`;
+      spawnHearts(6);
+
+      if(yesScale > 6){
+        noBtn.style.opacity = 0; noBtn.style.pointerEvents = 'none';
+        yesBtn.style.transition = 'all 0.6s ease';
+        yesBtn.style.position = 'fixed';
+        yesBtn.style.inset = '0';
+        yesBtn.style.margin = 'auto';
+        yesBtn.style.width = '90vw';
+        yesBtn.style.height = '90vh';
+        yesBtn.style.fontSize = '32px';
+        yesBtn.style.borderRadius = '20px';
+      }
+    });
+
+    yesBtn.addEventListener('click', ()=>{
+      overlay.classList.add('show');
+      spawnHearts(20);
+    });
+  </script>
+</body>
+</html>

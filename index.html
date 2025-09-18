@@ -55,7 +55,7 @@
     </div>
 
     <div class="buttons">
-      <button id="yesBtn" class="btn btn-yes">Evet</button>
+      <button id="yesBtn" class="btn btn-yes" disabled>Evet</button>
       <button id="noBtn" class="btn btn-no">Hayır</button>
     </div>
 
@@ -135,12 +135,15 @@
         yesBtn.style.fontSize = '32px';
         yesBtn.style.borderRadius = '0';
         yesBtn.style.transform = 'none';
+        yesBtn.disabled = false; // Şimdi tıklanabilir
       }
     });
 
     yesBtn.addEventListener('click', ()=>{
-      overlay.classList.add('show');
-      spawnHearts(25);
+      if(!yesBtn.disabled){
+        overlay.classList.add('show');
+        spawnHearts(25);
+      }
     });
   </script>
 </body>
